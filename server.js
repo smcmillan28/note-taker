@@ -14,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "/Develop/public")));
 
+// Pulling data from db.json file so we can use fs library to amend database
 const file_name = "./Develop/db/db.json";
 let rawdata = fs.readFileSync(file_name);
 let notes = JSON.parse(rawdata);
@@ -21,11 +22,11 @@ console.log(notes);
 
 // Setup routes
 // Three GET requests for the index/notes/api routes
-app.get("/", (req, res) => res.sendFile(path.join(__dirname, "/Develop/public/index.html")));
+app.get("/api/notes", (req, res) => res.json(notes));
 
 app.get("/notes", (req, res) => res.sendFile(path.join(__dirname, "/Develop/public/notes.html")));
 
-app.get("/api/notes", (req, res) => res.json(notes));
+app.get("*", (req, res) => res.sendFile(path.join(__dirname, "/Develop/public/index.html")));
 
 // Post request that takes in a new note and saves it to notes array as JSON object
 app.post("/api/notes", (req, res) => {
