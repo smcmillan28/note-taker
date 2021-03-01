@@ -6,8 +6,8 @@ const uniqid = require("uniqid");
 
 // Set up the express app so that it can be hosted on heroku
 const app = express();
-const PORT = 8080;
-// const PORT = process.env.PORT || 8080;
+// const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 // Setting up express app for posting data
 app.use(express.urlencoded({ extended: true }));
@@ -22,6 +22,8 @@ console.log(notes);
 
 // Setup routes
 // Three GET requests for the index/notes/api routes
+app.get("/", (req, res) => res.sendFile(path.join(__dirname, "/Develop/public/index.html")));
+
 app.get("/api/notes", (req, res) => res.json(notes));
 
 app.get("/notes", (req, res) => res.sendFile(path.join(__dirname, "/Develop/public/notes.html")));
