@@ -15,18 +15,26 @@ app.use(express.static(path.join(__dirname, "/Develop/public")));
 const notes = [];
 
 // Setup routes
-// Three GET methods for the index/notes/api routes
-app.get("/", (req, res) => res.sendFile(path.join(__dirname, "/Develop/public/index.html")));
+// Three GET requests for the index/notes/api routes
+app.get("*", (req, res) => res.sendFile(path.join(__dirname, "/Develop/public/index.html")));
 
 app.get("/notes", (req, res) => res.sendFile(path.join(__dirname, "/Develop/public/notes.html")));
 
 app.get("/api/notes", (req, res) => res.json(notes));
 
-// Post route that takes in a new note and saves it to notes array as JSON object
+// Post request that takes in a new note and saves it to notes array as JSON object
 app.post("/api/notes", (req, res) => {
     const newNote = req.body;
     notes.push(newNote);
     res.json(newNote);
+});
+
+// Delete request that removes note from array when button clicked on notes page
+app.delete("/api/notes/:id", (req, res) => {
+    const noteIndex = notes.findIndex(({ id }) => id === req.params.id);
+    if (noteIndex >= 0) {
+        notes.splice(noteIndex, 1);
+    }
 });
 
 app.listen(PORT, () => console.log(`App listening on http://localhost:${PORT}`));
