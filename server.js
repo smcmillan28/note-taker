@@ -32,9 +32,8 @@ app.get("/api/notes", (req, res) => res.json(notes));
 // Post request that takes in a new note and saves it to notes array as JSON object
 app.post("/api/notes", (req, res) => {
     const newNote = req.body;
-    fs.appendFile(file_name, JSON.stringify(newNote), "utf8", function(err, data) {
-        if (err) console.err(err);
-    });
+    notes.push(newNote);
+    fs.writeFileSync(file_name, JSON.stringify(notes));
     res.json(newNote); 
 });
 
