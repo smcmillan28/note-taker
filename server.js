@@ -38,10 +38,10 @@ app.post("/api/notes", (req, res) => {
 
 // Delete request that removes note from array when button clicked on notes page
 app.delete("/api/notes/:id", (req, res) => {
-    const noteIndex = notes.findIndex(({ id }) => id === req.params.id);
-    if (noteIndex >= 0) {
-        notes.splice(noteIndex, 1);
-    }
+    const { id } = req.params;
+    const noteIndex = notes.findIndex(p => p.id == id);
+    notes.splice(noteIndex, 1);
+    return res.send();
 });
 
 app.listen(PORT, () => console.log(`App listening on http://localhost:${PORT}`));
