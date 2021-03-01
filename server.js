@@ -41,6 +41,7 @@ app.delete("/api/notes/:id", (req, res) => {
     const { id } = req.params;
     const noteIndex = notes.findIndex(p => p.id == id);
     notes.splice(noteIndex, 1);
+    fs.writeFileSync(file_name, JSON.stringify(notes));
     return res.send();
 });
 
