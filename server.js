@@ -1,6 +1,7 @@
 // Declaring dependencies
 const express = require("express");
 const path = require("path");
+const uniqid = require("uniqid");
 
 // Set up the express app so that it can be hosted on heroku
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "/Develop/public")));
 
 const notes = [];
+console.log(uniqid());
 
 // Setup routes
 // Three GET requests for the index/notes/api routes
