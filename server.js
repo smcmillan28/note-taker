@@ -14,12 +14,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "/Develop/public")));
 
-const file_name = "./Develop/db/db.json"
+const file_name = "./Develop/db/db.json";
 let rawdata = fs.readFileSync(file_name);
 let notes = JSON.parse(rawdata);
 console.log(notes);
-
-console.log(uniqid());
 
 // Setup routes
 // Three GET requests for the index/notes/api routes
@@ -32,6 +30,7 @@ app.get("/api/notes", (req, res) => res.json(notes));
 // Post request that takes in a new note and saves it to notes array as JSON object
 app.post("/api/notes", (req, res) => {
     const newNote = req.body;
+    newNote.id = uniqid();
     notes.push(newNote);
     fs.writeFileSync(file_name, JSON.stringify(notes));
     res.json(newNote); 
