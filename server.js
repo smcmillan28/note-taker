@@ -6,8 +6,8 @@ const uniqid = require("uniqid");
 
 // Set up the express app so that it can be hosted on heroku
 const app = express();
-const PORT = 8080;
-// const PORT = process.env.PORT || 8080;
+// const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 // Setting up express app for posting data and pulling in css/js files
 app.use(express.urlencoded({ extended: true }));
